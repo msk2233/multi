@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import './styles/index.css'
 import {Toaster} from 'react-hot-toast'
 import { Provider } from 'react-redux'
+import {store,persistor} from './store';
+import { PersistGate } from 'redux-persist/integration/react'
 
 
 const root = ReactDOM.createRoot(
@@ -12,7 +14,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
+    <Provider store={store} >
     <BrowserRouter>
     <Toaster
   toastOptions={{
@@ -29,8 +31,10 @@ root.render(
     },
   }}
 />
-    <App />
+<PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
     </BrowserRouter>
-    {/* </Provider> */}
+    </Provider>
   </React.StrictMode>
 );

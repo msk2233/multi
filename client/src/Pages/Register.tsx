@@ -68,11 +68,6 @@ const Register = () => {
             else {
                 selerr.innerHTML = ""
             }
-            // const radio = document.getElementsByName('gender') as NodeListOf<HTMLInputElement>;
-            // if (radio[0].checked == radio[1].checked == radio[1].checked == false) {
-            //     radio[0].focus();
-            //     count++;
-            // }
             const passerr = document.getElementById('passerror') as HTMLElement;
             const passRegex:RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/;
                 if (passRegex.test(person.pass) && passRegex.test(person.conpassword)) {
@@ -100,7 +95,6 @@ const Register = () => {
                         toast.success('registered Successfully!')
                     }
                     else if(response.data === "exist"){
-                        console.log("Already Registerd");
                         toast.error("Already Registerd")
                     }
                     else{

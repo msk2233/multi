@@ -18,7 +18,7 @@ interface register_body {
 interface login {
     u_id: number,
     email: string
-    pass: string
+    password: string
 }
 export const register = async (req: Request<{},{},register_body,{}>, res: Response) => {
     const { fname, lname, gender, dateofbirth, phno, email, state, pass } = req.body;
@@ -43,18 +43,15 @@ export const register = async (req: Request<{},{},register_body,{}>, res: Respon
     }   
 }
 export const login = async (req: Request<{},{},login,{}>,res:Response) => {
-    const { email, pass } = req.body;
-    const logqr = `select email,password,u_id from users;`
-    const data:[Userint] = await execute(logqr,[]) as [Userint];
-    
-    data.forEach(async element => {
-        const ispass:boolean = await bcrypt.compare(pass, element.password)
-        if (email == element.email && ispass) {
-            const payload:{} = { email: email ,user_id:element.u_id };
-            console.log("login success");
-            const token: string = jwt.sign(payload,`${process.env.JWT_SECRET}`, { expiresIn: '5h' });
-            res.cookie('token',token);
-            res.json({res:"yes"});
-        }
-    });
+    const { email, password } = req.body;
+    const logqr = `select email,password,u_id from users where email=?;`;
+    const data:[Userint] = await execute(logqr,[email]) as [Userint];
+    const ispass:boolean = await bcrypt.compare(password,data[0].password);
+    if (ispass) {
+        const payload:{} = { email: email ,user_id:data[0].u_id };
+        console.log("login success");
+        const token: string = jwt.sign(payload,`${process.env.JWT_SECRET}`, { expiresIn: '5h' });
+        res.cookie('token',token);
+        res.json({res:data[0]});
+    }      
 }

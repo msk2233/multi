@@ -9,9 +9,9 @@ import passport from "passport"
 
 app.post("/reg_data", register)
 app.post("/login",login)
-app.get("/fetchdetail",passport.authenticate('jwt', { session: false, failureRedirect: '/login' }),fetchdetail);
-app.post("/addtocart",passport.authenticate('jwt', { session: false, failureRedirect: '/login' }),addtocart);
-app.get("/fetchcart",passport.authenticate('jwt', { session: false, failureRedirect: '/login' }),fetchcart);
-app.get("/removecart",passport.authenticate('jwt', { session: false, failureRedirect: '/login' }),removefromcart);
+app.get("/fetchdetail",fetchdetail);
+app.post("/addtocart",addtocart);
+app.get("/fetchcart",fetchcart);
+app.get("/removecart",removefromcart);
 
 export default app;

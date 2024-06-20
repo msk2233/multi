@@ -12,21 +12,25 @@ export const fetchdetail = async (req: Request, res: Response) => {
 }
 export const addtocart = async (req: Request<{}, {}, Addtocartbody, {}>, res: Response) => {
   const values: Array<number> = [req.body.user_id, req.body.item_id];
+  console.log(values);
+  
   try {
-    const checkexist: string = 'select isdeleted from cart where user_id=? and item_id=?'
+    const checkexist: string = 'select isdeleted,quantity from cart where user_id=? and item_id=?'
     const checkres: [checkdetail] = await execute(checkexist, values) as [checkdetail];
 
     if (checkres[0] == undefined) {
-      const addtocartqr = `insert into cart (user_id,item_id) values (?,?)`;
+      const addtocartqr = `insert into cart (user_id,item_id,quantity) values (?,?,1)`;
       const result: ResultSetHeader = await execute(addtocartqr, values) as ResultSetHeader;
     }
     else if (checkres[0] !== undefined) {
       if (checkres[0].isdeleted == 1) {
-        const updatecart = 'update cart set isdeleted=0 where user_id=? and item_id=?;'
+        const updatecart = 'update cart set isdeleted=0,quantity=1 where user_id=? and item_id=?;'
         const resupdatecart = await execute(updatecart, values);
         res.json("success");
       }
       else {
+        const addQnt = 'update cart set quantity= quantity+1 where user_id=? and item_id=?;';
+        const executeQnt = await execute(addQnt,values);
         res.json("exist");
       }
     }

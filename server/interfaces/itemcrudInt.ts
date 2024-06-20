@@ -10,7 +10,8 @@ export interface ItemInterface extends Request{
     isdeleted:boolean,
     createdAt:Date,
     updatedAt:Date,
-    deletedAt:Date
+    deletedAt:Date,
+    quantity:number
 }
 export interface Addtocartbody extends Request{
     item_id:number,

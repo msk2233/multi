@@ -2,6 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import React, { useState } from 'react';
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../hooks/redux-hooks";
+import { login } from '../slices/authSlice';
+
 
 interface person {
     email: string
@@ -14,19 +17,25 @@ let initialState: person = {
 const Login = () => {
     const [person, setPerson] = useState<person>(initialState)
     const Navigate:NavigateFunction = useNavigate();
+    const dispatch = useAppDispatch();
 
-const submitdata = (e: React.FormEvent<HTMLFormElement>) =>{
-    e.preventDefault()
-    axios.post<{res:string}>('http://localhost:5050/login', person,{withCredentials:true})
-    .then((response) => {
-        if (response.data.res === "yes") {
-            Navigate("/home");
-        } 
-    })
-    .catch(function (error) {
-        console.log(error);
-    });  
+
+const submitdata = async (e: React.FormEvent<HTMLFormElement>) =>{
+    e.preventDefault()  
+        const email:string = person.email;
+    const password:string = person.pass;
+    const response = await dispatch(
+        login({
+          email,
+          password,
+        })
+      ).unwrap();
+    console.log("data of user",response); 
+    if (response.res.email) {
+        Navigate("/cart");
+    }
 }
+
 const oninpChangeHandler = (event: HTMLInputElement) =>{
     const { name, value } = event
     setPerson((prev) => {

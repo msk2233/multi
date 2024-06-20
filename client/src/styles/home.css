@@ -1,29 +1,20 @@
+.rowclass{
+    width: 95%;
+    margin:0 200px
+}
+
 .product-grid{
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    border: 1px solid #e7e7e7;
 }
 .product-grid .product-image{ position: relative; }
 .product-grid .product-image a.image{ display: block; }
 .product-grid .product-image img{
     width: 100%;
-    height: auto;
+    /* height: auto; */
     transition: all 0.3s ease 0s;
 }
 .product-grid .product-image:hover img{ transform: translate(10px,-10px); }
-.product-grid .product-sale-label{
-    color: #fff;
-    background: #1abc9c;
-    font-size: 13px;
-    text-transform: capitalize;
-    line-height: 35px;
-    width: 55px;
-    height: 35px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    animation: bg-animate 5s infinite linear;
-}
 .product-grid .product-links{
     padding: 0;
     margin: 0;

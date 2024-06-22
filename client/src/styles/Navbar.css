@@ -1,0 +1,20 @@
+.mainNav{
+  background-color: #9E4D9A;
+  color: white;
+}
+
+.nav-link{
+  color:#fff;
+  font-size: 25px;
+}
+
+/* An optional height of the navbar AFTER scroll */
+.navbar.navbar-scroll.navbar-scrolled {
+  padding-top: auto;
+  padding-bottom: auto;
+}
+.navbar-brand {
+  font-size: 30px;
+  font-family: 700;
+  color:#fff;
+}

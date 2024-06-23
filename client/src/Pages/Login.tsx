@@ -37,6 +37,9 @@ const submitdata = async (e: React.FormEvent<HTMLFormElement>) =>{
     const redirectPath = localStorage.getItem('redirectPath') || '/';
       localStorage.removeItem('redirectPath');
         Navigate(redirectPath);
+
+    //logic for appending data "dont forget to attach append:false in logout add to cart api
+     const addtocart = await axios.post(`http://localhost:5050/addtocart`,{cartdata:cartdata.cart,userdata:data,append:true},{ withCredentials: true });
       
       const Cart = await axios.get(`http://localhost:5050/fetchcart/?user_id=${data.u_id}`,{withCredentials:true});
       if (Cart.data) {

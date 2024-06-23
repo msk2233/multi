@@ -16,7 +16,9 @@ export const addtocart = async (req: Request<{}, {}, Addtocartbody, {}>, res: Re
   const u_id = userdata.u_id;
   
   try {
-    const deleteData = await execute(`delete from cart where user_id=?`,[u_id]);
+    if (req.body.append == false) {
+      const deleteData = await execute(`delete from cart where user_id=?`,[u_id]);
+    }
     
     cartdata.forEach(async (element:ItemInterface) => {
       const checkexist: string = 'select isdeleted,quantity from cart where user_id=? and item_id=?'

@@ -32,6 +32,11 @@ const submitdata = async (e: React.FormEvent<HTMLFormElement>) =>{
         })
       ).unwrap();
       const data = response;
+
+    //code of redirection added
+    const redirectPath = localStorage.getItem('redirectPath') || '/';
+      localStorage.removeItem('redirectPath');
+        Navigate(redirectPath);
       
       const Cart = await axios.get(`http://localhost:5050/fetchcart/?user_id=${data.u_id}`,{withCredentials:true});
       if (Cart.data) {
